@@ -1,5 +1,6 @@
 /* @flow */
-
+// Runtime + Compiler 构建出来的 Vue.js， 它的入口是 src/platforms/web/entry-runtime-with-compiler.js
+// 当我们的代码执行 import Vue from 'vue' 的时候，就是从这个入口执行代码来初始化 Vue
 import config from 'core/config'
 import { warn, cached } from 'core/util/index'
 import { mark, measure } from 'core/util/perf'

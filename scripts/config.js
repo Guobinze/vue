@@ -25,6 +25,8 @@ const weexFactoryPlugin = {
   }
 }
 
+// 这里的 resolve 函数实现非常简单，它先把 resolve 函数传入的参数 p 通过 / 做了分割成数 组，然后取数组第一个元素设置为 base 。
+// base 并不是实际的路径，它的真实路径借助了别名的配置，我们来看一下别名配置的代码，在 scripts/alias中
 const aliases = require('./alias')
 const resolve = p => {
   const base = p.split('/')[0]
@@ -35,6 +37,9 @@ const resolve = p => {
   }
 }
 
+// 对于单个配置，它是遵循 Rollup 的构建规则的。其中 entry 属性表示构建的入口 JS 文件地
+// 址， dest 属性表示构建后的 JS 文件地址。 属性表示构建的格式， cjs 表示构建出来的 文件遵循 CommonJS 规范， es 表示构建出来的文件遵循 ES Module 规范。
+// umd 表示构建出来的文 件遵循 UMD 规范。
 const builds = {
   // Runtime only (CommonJS). Used by bundlers e.g. Webpack & Browserify
   'web-runtime-cjs-dev': {

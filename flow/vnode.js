@@ -1,3 +1,4 @@
+// 虚拟 node 相关
 declare type VNodeChildren = Array<?VNode | string | VNodeChildren> | string;
 
 declare type VNodeComponentOptions = {
