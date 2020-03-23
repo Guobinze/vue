@@ -1,5 +1,7 @@
 /* @flow */
-
+// 而 Virtual DOM 就是用一个原生的 JS 对象去描述一个 DOM 节点，所以它比创建一个 DOM 的代价要小很多
+// 在 Vue.js 中，Virtual DOM 是用 VNode 这么一个 Class 去描述，它是定义在这里的
+// 借鉴了开源库snabbdom, 在上面加入Vue.js的属性
 export default class VNode {
   tag: string | void;
   data: VNodeData | void;

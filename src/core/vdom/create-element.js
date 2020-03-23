@@ -1,5 +1,5 @@
 /* @flow */
-
+// Vue.js 利用 createElement 方法创建 VNode, 定义文件在此
 import config from '../config'
 import VNode, { createEmptyVNode } from './vnode'
 import { createComponent } from './create-component'
@@ -25,11 +25,13 @@ const ALWAYS_NORMALIZE = 2
 
 // wrapper function for providing a more flexible interface
 // without getting yelled at by flow
+// createElement是对_createElement方法的封装，允许传入的参数更灵活
+
 export function createElement (
-  context: Component,
-  tag: any,
-  data: any,
-  children: any,
+  context: Component, // VNode 的上下文环境，它是 Component 类 型
+  tag: any, // tag 表示标签，它可以是一个字符串，也可以是一个 Component
+  data: any, // VNodeData类型， 可以在flow/vnode.js中找到它的定义
+  children: any, // 当前VNode的子节点，任意类型的
   normalizationType: any,
   alwaysNormalize: boolean
 ): VNode | Array<VNode> {
@@ -41,6 +43,7 @@ export function createElement (
   if (isTrue(alwaysNormalize)) {
     normalizationType = ALWAYS_NORMALIZE
   }
+  // 处理这些参数后，调用真正创建VNode的函数_createElement
   return _createElement(context, tag, data, children, normalizationType)
 }
 

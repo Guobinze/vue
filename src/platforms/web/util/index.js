@@ -1,5 +1,5 @@
 /* @flow */
-
+// 调用 query 方法转换成 DOM 对象
 import { warn } from 'core/util/index'
 
 export * from './attrs'

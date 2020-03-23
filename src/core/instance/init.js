@@ -12,6 +12,7 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
 
+// Vue 初始化主要就干了几件事情，合并配置，初始化生命周期，初始化事件中心，初始化渲染，初始 化 data、props、computed、watcher 等等。
 export function initMixin (Vue: Class<Component>) {
   Vue.prototype._init = function (options?: Object) {
     const vm: Component = this
@@ -64,7 +65,7 @@ export function initMixin (Vue: Class<Component>) {
       mark(endTag)
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
-
+    // 在初始化的最后，检测到如果有 el 属性，则调用 vm.$mount 方法挂载 vm ，挂载的目标就 是把模板渲染成最终的 DOM，那么接下来我们来分析 Vue 的挂载过程。
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
     }

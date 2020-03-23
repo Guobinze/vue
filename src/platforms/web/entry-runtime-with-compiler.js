@@ -15,7 +15,12 @@ const idToTemplate = cached(id => {
   return el && el.innerHTML
 })
 
+// 首先缓存了原型上的$mount方法
 const mount = Vue.prototype.$mount
+// 再重新定义该方法
+// $mount 方法支持传入 2 个参数，第一个是 el ，它表示挂载的元素，可以是字符串，也可以是 DOM 对象，如果是字符串在浏览器环境下会调用 query 方法转换成 DOM 对象的。
+// 第二个参数是和 服务端渲染相关，在浏览器环境下我们不需要传第二个参数。
+// 方法实际上会去调用mountComponent方法，这个方法定义在lifecycle文件中
 Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
@@ -23,6 +28,7 @@ Vue.prototype.$mount = function (
   el = el && query(el)
 
   /* istanbul ignore if */
+  // 对 el 做了限制，Vue 不能挂载在body、html这样的根节点上
   if (el === document.body || el === document.documentElement) {
     process.env.NODE_ENV !== 'production' && warn(
       `Do not mount Vue to <html> or <body> - mount to normal elements instead.`
@@ -32,6 +38,8 @@ Vue.prototype.$mount = function (
 
   const options = this.$options
   // resolve template/el and convert to render function
+  // 如果没有定义 render 方法，则会把 el 或者 字符串转换成 render 方法。
+  // 这里我们要牢记，在 Vue 2.0 版本中，所有 Vue 的组件的渲染最终都需要 render 方法
   if (!options.render) {
     let template = options.template
     if (template) {
